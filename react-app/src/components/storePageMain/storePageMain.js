@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import OpenModalButton from "../OpenModalButton";
 import { getAllGames } from "../../store/games";
 import { useHistory } from "react-router-dom";
+import NewGameForm from "../NewGameModal/newGameModal";
 
 const StorePageMain = () => {
 
@@ -34,12 +35,12 @@ const StorePageMain = () => {
                     </div>
                 ))}
             </div>
-            {/* <div className="new-game-button">
+            <div className="new-game-button">
                     <OpenModalButton
-                        modalComponent={<CreateGameForm />}
+                        modalComponent={<NewGameForm />}
                         buttonText="Publish a New Game"
                     />
-            </div> */}
+            </div>
         </>
     );
 
