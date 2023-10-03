@@ -23,8 +23,8 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     #Relationships
-    user_reviews = db.relationship('Reviews', back_populates='reviewer', cascade='all, delete-orphan')
-    developed_games = db.relationship('Games', back_populates='developer', cascade='all, delete-orphan')
+    user_reviews = db.relationship('Review', back_populates='reviewer', cascade='all, delete-orphan')
+    developed_games = db.relationship('Game', back_populates='developer', cascade='all, delete-orphan')
 
 
     @property
