@@ -11,8 +11,8 @@ class Review(db.Model):
     #Columns
     id = db.Column(db.Integer, primary_key=True)
     recomended = db.Column(db.Boolean, nullable=False)
-    game_id = db.Column(db.Integer, db.foreignKey(add_prefix_for_prod('games.id')), nullable=False)
-    user_id = db.Column(db.Integer, db.foreignKey(add_prefix_for_prod('users.id')), nullable=False)
+    game_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('games.id')), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     review_text = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

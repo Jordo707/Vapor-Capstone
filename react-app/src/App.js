@@ -5,6 +5,8 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import StorePageMain from "./components/storePageMain/storePageMain";
+import GameStorePage from "./components/gameStorePage/gameStorePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +25,12 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path='/store/:gameId'>
+            <GameStorePage />
+          </Route>
+          <Route exact path='/store'>
+            <StorePageMain />
           </Route>
         </Switch>
       )}
