@@ -11,3 +11,13 @@
   justify-content: space-around;
   align-items: center;
 }
+
+.vapor-title {
+  display: flex;
+  align-items: center;
+}
+
+.vapor-logo {
+  height: 50px;
+  width: 50px;
+}
