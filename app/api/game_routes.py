@@ -18,10 +18,34 @@ def all_games():
 @game_routes.route('/<game_id>')
 def single_game(game_id):
     """
-    Get details of a single game
+    Get details of a single game and its reviews with user information
     """
-    single_game = Game.query.filter(Game.id == game_id)[0]
-    return single_game.to_dict()
+    # Fetch game details
+    game = Game.query.get(game_id)
+
+    # Fetch reviews associated with the game and join with the User model
+    reviews = (
+        db.session.query(Review, User)
+        .filter(Review.game_id == game_id)
+        .join(User, Review.user_id == User.id)
+        .all()
+    )
+
+    # Create a list of dictionaries to return game and reviews with user information
+    reviews_with_users = [
+        {
+            "review": review.to_dict(),
+            "user": user.to_dict(),
+        }
+        for review, user in reviews
+    ]
+
+    game_data = {
+        "game": game.to_dict(),
+        "reviews": reviews_with_users,
+    }
+
+    return game_data
 
 @game_routes.route('', methods=['POST'])
 @login_required
@@ -77,5 +101,5 @@ def update_game(game_id):
         game_to_update.price = data['price']
         game_to_update.description = data['description']
         db.session.commit()
-        return 'Game Updated Successfully'
-    return 'Failed to Update Game'
+        return jsonify(game_to_update.to_dict()), 200
+    return 'Failed to Update Game :-('
