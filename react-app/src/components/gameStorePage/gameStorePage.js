@@ -12,8 +12,11 @@ const GameStorePage = () => {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    const game = useSelector( state => state.games.selectedGame)
+    const game = useSelector( state => state.games.selectedGame.game)
+    const reviews = useSelector (state => state.games.selectedGame.reviews)
     const sessionUserId = useSelector(state => state.session.user.id)
+
+    console.log('SINGLE GAME REVIEWS',reviews)
 
     const { gameId } = useParams()
 
@@ -26,6 +29,10 @@ const GameStorePage = () => {
     if (!game) {
         return <div>Loading...</div>
     }
+
+    const isDeveloper = game.developer_id == sessionUserId;
+    const hasReviewed = reviews.some((review) => review.review.user_id === sessionUserId);
+    const shouldRenderButton = !isDeveloper && !hasReviewed;
 
     return (
         <>
@@ -47,6 +54,23 @@ const GameStorePage = () => {
                     buttonText='Update Game'
                 />
             </span>
+            <div className="reviews-container">
+                <h3>Reviews</h3>
+                {reviews.length === 0 ? (
+                    <p>No reviews exist for this game.</p>
+                ) : (
+                    reviews.map((review) => (
+                    <div className="review-box" key={review.review.id}>
+                        <h4>{review.review.recomended ? 'Recommended' : 'Not Recommended'}</h4>
+                        <p>{review.review.review_text}</p>
+                        <p>{review.user.username}</p>
+                    </div>
+                    ))
+                )}
+                {shouldRenderButton && (
+                    <button>Add Review</button>
+                )}
+            </div>
         </>
     )
 }
