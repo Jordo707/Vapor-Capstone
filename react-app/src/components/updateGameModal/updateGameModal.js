@@ -1,9 +1,8 @@
 //react-app/src/components/updateGameModal/updateGameModal.js
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { getSingleGame, getAllGames, updateGame } from "../../store/games";
+import { getSingleGame,  updateGame } from "../../store/games";
 import { useModal } from "../../context/Modal";
 
 const UpdateGameForm = () => {
@@ -11,10 +10,6 @@ const UpdateGameForm = () => {
     const gameToUpdate = useSelector(state => state.games.selectedGame.game)
     const [errorMessages, setErrorMessages] = useState({});
     const dispatch = useDispatch();
-    const history = useHistory();
-
-    // Destructure properties from selectedGame
-    // const { game, reviews } = selectedGame;
     const [name, setName] = useState(gameToUpdate?.name ||'');
     const [price, setPrice] = useState(gameToUpdate?.price ||0);
     const [description, setDescription] = useState(gameToUpdate?.description ||'');

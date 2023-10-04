@@ -20,8 +20,9 @@ export const postReview = (review) => async (dispatch) => {
     if (response.ok) {
         const newReview = await response.json();
         console.log('NEW REVIEW THUNK DATA: ', newReview)
-        dispatch(getOneGame(newReview.game_id))
-        return newReview
+        console.log('NEW REVIEW:', newReview)
+        const game = await dispatch(getOneGame(newReview.game_id))
+        return game
     }
     return 'Failed to Create New Review :-('
 }

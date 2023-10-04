@@ -58,6 +58,7 @@ export const getSingleGame = (gameId) => async (dispatch) => {
     if (response.ok) {
         const singleGame = await response.json()
         dispatch(getOneGame(singleGame))
+        return singleGame
     } else {
         console.log(`Couldn't find game :-(`)
     }

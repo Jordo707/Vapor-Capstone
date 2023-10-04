@@ -1,20 +1,28 @@
-// react-app/components/submitReviewModal/submitReviewModal.js
+// react-app/src/components/submitReviewModal/submitReviewModal.js
 
 import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { postReview } from "../../store/reviews";
+import { getSingleGame } from "../../store/games";
 
 const SubmitReviewModal = () => {
     const userId = useSelector(state => state.session.user.id);
-    const gameId = useSelector(state => state.games.selectedGame.game.id)
+    const selectedGame = useSelector(state => state.games.selectedGame);
     const dispatch = useDispatch();
-    const history = useHistory();
-    const [errorMessages,setErrorMessages] = useState({});
-    const [recomended,setRecomended] = useState(true);
-    const [reviewText,setReviewText] = useState('');
+    const [errorMessages, setErrorMessages] = useState({});
+    const [recomended, setRecomended] = useState(true);
+    const [reviewText, setReviewText] = useState('');
     const { closeModal } = useModal();
+
+    useEffect(() => {
+        // Check if selectedGame is defined before accessing its properties
+        if (selectedGame && selectedGame.game) {
+            setGameId(selectedGame.game.id);
+        }
+    }, [selectedGame]);
+
+    const [gameId, setGameId] = useState(null); // Initialize gameId as null
 
     const updateRecomended = (e) => setRecomended(e.target.checked);
     const updateReviewText = (e) => setReviewText(e.target.value);
@@ -22,38 +30,45 @@ const SubmitReviewModal = () => {
     const handleReviewCreate = async (e) => {
         e.preventDefault();
         const validationErrors = {};
-        if (reviewText.trim() == '') {
-            validationErrors.reviewText = 'Review Text is Required'
+        if (reviewText.trim() === '') {
+            validationErrors.reviewText = 'Review Text is Required';
         }
         if (reviewText.trim().length < 3) {
-            validationErrors.reviewText = 'Review must be at least three characters in length'
+            validationErrors.reviewText = 'Review must be at least three characters in length';
+        }
+
+        if (gameId === null) {
+            // Handle the case where gameId is null (not available)
+            setErrorMessages({ overall: 'Game information not available.' });
+            return;
         }
 
         const payload = {
-            recomended:recomended,
-            game_id:gameId,
-            user_id:userId,
-            review_text:reviewText
+            recomended: recomended,
+            game_id: gameId, // Use gameId obtained from state
+            user_id: userId,
+            review_text: reviewText
         };
 
-        if (Object.keys(validationErrors).length == 0) {
+        if (Object.keys(validationErrors).length === 0) {
             try {
                 const response = await dispatch(postReview(payload));
-                console.log('RESPONSE CREATE REVIEW: ', response)
+                console.log('RESPONSE CREATE REVIEW: ', response);
                 const newReviewId = response.id;
+                await dispatch(getSingleGame(gameId));
                 closeModal();
-                history.push(`/store/${newReviewId.game_id}`)
+                // history.push(`/store/${newReviewId.game_id}`)
             } catch (error) {
-                setErrorMessages({ overall: error.toString().slice(7) })
+                setErrorMessages({ overall: error.toString().slice(7) });
             }
         } else {
-            setErrorMessages(validationErrors)
+            setErrorMessages(validationErrors);
         }
     };
 
     const handleCancelClick = (e) => {
         e.preventDefault();
-        closeModal()
+        closeModal();
     };
 
     return (
@@ -62,7 +77,7 @@ const SubmitReviewModal = () => {
             <form className="new-review-form">
                 <div>
                     <label>
-                        Recomended?
+                        Recommended?
                     </label>
                     <input
                         type='checkbox'
@@ -92,7 +107,7 @@ const SubmitReviewModal = () => {
                 </div>
             </form>
         </div>
-    )
-}
+    );
+};
 
-export default SubmitReviewModal
+export default SubmitReviewModal;
