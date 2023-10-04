@@ -7,6 +7,7 @@ import { getSingleGame } from "../../store/games";
 import { useHistory, useParams } from "react-router-dom";
 import DeleteGameModal from "../deleteGameModal/deleteGameModal";
 import UpdateGameForm from "../updateGameModal/updateGameModal";
+import SubmitReviewModal from "../submitReviewModal/submitReviewModal";
 
 const GameStorePage = () => {
 
@@ -27,7 +28,7 @@ const GameStorePage = () => {
     console.log('GAME DATA: ', game)
 
     if (!game) {
-        return <div>Loading...</div>
+        return <div>Loading Game Store Page...</div>
     }
 
     const isDeveloper = game.developer_id == sessionUserId;
@@ -68,7 +69,11 @@ const GameStorePage = () => {
                     ))
                 )}
                 {shouldRenderButton && (
-                    <button>Add Review</button>
+                    <OpenModalButton
+                        modalComponent={<SubmitReviewModal game={game}/>}
+
+                        buttonText='Post a Review'
+                    />
                 )}
             </div>
         </>

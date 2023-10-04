@@ -8,14 +8,19 @@ import { useModal } from "../../context/Modal";
 
 const UpdateGameForm = () => {
     const userId = useSelector(state => state.session.user.id);
-    const gameToUpdate = useSelector(state => state.games.selectedGame)
+    const gameToUpdate = useSelector(state => state.games.selectedGame.game)
     const [errorMessages, setErrorMessages] = useState({});
     const dispatch = useDispatch();
     const history = useHistory();
-    const [name, setName] = useState(gameToUpdate.name);
-    const [price, setPrice] = useState(gameToUpdate.price);
-    const [description, setDescription] = useState(gameToUpdate.description);
+
+    // Destructure properties from selectedGame
+    // const { game, reviews } = selectedGame;
+    const [name, setName] = useState(gameToUpdate?.name ||'');
+    const [price, setPrice] = useState(gameToUpdate?.price ||0);
+    const [description, setDescription] = useState(gameToUpdate?.description ||'');
     const { closeModal } = useModal();
+
+
     console.log('GAME TO UPDATE', gameToUpdate)
 
     const updateName = (e) => setName(e.target.value);
@@ -51,16 +56,18 @@ const UpdateGameForm = () => {
         };
         console.log('PAYLOAD', payload)
         if (Object.keys(validationErrors).length == 0) {
+            console.log('NO VALIDATION ERRORS')
             try {
                 const response = await dispatch(updateGame(payload));
                 console.log('RESPONSE UPDATE GAME:', response)
-                const newGameId = response.id;
+                // const newGameId = response.id;
+                await dispatch(getSingleGame(gameToUpdate.id))
                 closeModal()
-                history.push(`/store/${newGameId}`)
+                // history.push(`/store/${newGameId}`)
             } catch (error) {
-                // If error is not a ValidationError, add slice at the end to remove extra
-                // "Error: "
-                setErrorMessages({ overall: error.toString().slice(7) })
+                console.error('Error updating game:', error);
+                console.log(error)
+                setErrorMessages({ overall: error.toString().slice(7) });
             }
         } else {
             setErrorMessages(validationErrors)
@@ -71,6 +78,10 @@ const UpdateGameForm = () => {
         e.preventDefault();
         closeModal()
     };
+
+    if (!gameToUpdate) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="new-game-container">
