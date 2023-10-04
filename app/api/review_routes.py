@@ -51,3 +51,17 @@ def update_review(review_id):
         db.session.commit()
         return jsonify(review_to_update.to_dict()), 200
     return 'Failed to Update Review :-('
+
+@review_routes.route('/<review_id>', methods=['DELETE'])
+@login_required
+def delete_review(review_id):
+    """
+    Delete a Review
+    """
+    review_to_delete = Review.query.get(review_id)
+    db.session.delete(review_to_delete)
+    db.session.commit()
+    print('--------------------------------')
+    print('REVIEW ', review_to_delete.id, ' DELETED' )
+    print('--------------------------------')
+    return {'message':'Review successfully deleted'}

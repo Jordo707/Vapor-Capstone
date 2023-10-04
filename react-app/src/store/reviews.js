@@ -44,6 +44,18 @@ export const updateReview = (review) => async (dispatch) => {
     }
 }
 
+export const deleteReview = (reviewId) => async (dispatch) => {
+    console.log('HIT DELETE REVIEW THUNK')
+    const response = await fetch (`/api/reviews/${reviewId}`, {
+        method:'DELETE',
+    });
+    if (response.ok) {
+        console.log('DELETE REVIEW THUNK RESPONSE:', response)
+        return reviewId
+    }
+    console.log('BAD DELETE REVIEW THUNK RESPONSE')
+}
+
 // Reducer
 const initialState = {
 

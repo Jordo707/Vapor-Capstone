@@ -9,6 +9,7 @@ import DeleteGameModal from "../deleteGameModal/deleteGameModal";
 import UpdateGameForm from "../updateGameModal/updateGameModal";
 import SubmitReviewModal from "../submitReviewModal/submitReviewModal";
 import UpdateReviewModal from "../updateReviewModal/updateReviewModal";
+import DeleteReviewModal from "../deleteReviewModal/deleteReviewModal";
 
 const GameStorePage = () => {
 
@@ -69,7 +70,7 @@ const GameStorePage = () => {
                         {review.user.id === sessionUserId && (
                             <div>
                                 <OpenModalButton
-
+                                    modalComponent={<DeleteReviewModal review={review.review}/>}
 
                                     buttonText='Delete this Review'
                                 />
