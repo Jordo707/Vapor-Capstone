@@ -16,7 +16,7 @@ const getGames = (allGames) => ({
     payload: allGames
 })
 
-const getOneGame = (game) => ({
+export const getOneGame = (game) => ({
     type:GET_ONE_GAME,
     payload: game
 })
@@ -58,6 +58,7 @@ export const getSingleGame = (gameId) => async (dispatch) => {
     if (response.ok) {
         const singleGame = await response.json()
         dispatch(getOneGame(singleGame))
+        return singleGame
     } else {
         console.log(`Couldn't find game :-(`)
     }
@@ -92,6 +93,7 @@ export const deleteGame = (gameId) => async (dispatch) => {
 }
 
 export const updateGame = (updatedGame) => async (dispatch) => {
+    console.log('HIT UPDATE GAME THUNK')
     console.log("THUNK UPDATED GAME ID: ",updatedGame.id)
     const response = await fetch(`/api/games/${updatedGame.id}`, {
         method:'PUT',
@@ -101,8 +103,9 @@ export const updateGame = (updatedGame) => async (dispatch) => {
         body: JSON.stringify(updatedGame)})
     console.log('UPDATE GAME THUNK RESPONSE: ', response)
     if (response.ok) {
-        dispatch(getOneGame(updatedGame))
-        return updatedGame
+        const updatedGameData = await response.json();
+        dispatch(getOneGame(updatedGameData));
+        return updatedGameData;
     }
 
 }
@@ -110,9 +113,12 @@ export const updateGame = (updatedGame) => async (dispatch) => {
 // Reducer
 
 const initialState = {
-    allGames:{},
-    selectedGame:{}
-}
+    allGames: {},
+    selectedGame: {
+        game: {},
+        reviews: [],
+    }
+};
 
 export default function gamesReducer(state = initialState, action) {
     switch (action.type) {

@@ -7,13 +7,19 @@ import { getSingleGame } from "../../store/games";
 import { useHistory, useParams } from "react-router-dom";
 import DeleteGameModal from "../deleteGameModal/deleteGameModal";
 import UpdateGameForm from "../updateGameModal/updateGameModal";
+import SubmitReviewModal from "../submitReviewModal/submitReviewModal";
+import UpdateReviewModal from "../updateReviewModal/updateReviewModal";
+import DeleteReviewModal from "../deleteReviewModal/deleteReviewModal";
 
 const GameStorePage = () => {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    const game = useSelector( state => state.games.selectedGame)
+    const game = useSelector( state => state.games.selectedGame.game)
+    const reviews = useSelector (state => state.games.selectedGame.reviews)
     const sessionUserId = useSelector(state => state.session.user.id)
+
+    console.log('SINGLE GAME REVIEWS',reviews)
 
     const { gameId } = useParams()
 
@@ -24,8 +30,12 @@ const GameStorePage = () => {
     console.log('GAME DATA: ', game)
 
     if (!game) {
-        return <div>Loading...</div>
+        return <div>Loading Game Store Page...</div>
     }
+
+    const isDeveloper = game.developer_id == sessionUserId;
+    const hasReviewed = reviews.some((review) => review.review.user_id === sessionUserId);
+    const shouldRenderButton = !isDeveloper && !hasReviewed;
 
     return (
         <>
@@ -47,6 +57,42 @@ const GameStorePage = () => {
                     buttonText='Update Game'
                 />
             </span>
+            <div className="reviews-container">
+                <h3>Reviews</h3>
+                {reviews.length === 0 ? (
+                    <p>No reviews exist for this game.</p>
+                ) : (
+                    reviews.map((review) => (
+                    <div className="review-box" key={review.review.id}>
+                        <h4>{review.review.recomended ? 'Recommended' : 'Not Recommended'}</h4>
+                        <p>{review.review.review_text}</p>
+                        <p>{review.user.username}</p>
+                        {review.user.id === sessionUserId && (
+                            <div>
+                                <OpenModalButton
+                                    modalComponent={<DeleteReviewModal review={review.review}/>}
+
+                                    buttonText='Delete this Review'
+                                />
+                                <OpenModalButton
+                                    modalComponent={<UpdateReviewModal review={review.review}/>}
+
+                                    buttonText='Update Your Review'
+                                />
+                            </div>
+                        )}
+                    </div>
+                    ))
+                )}
+                {shouldRenderButton && (
+
+                    <OpenModalButton
+                        modalComponent={<SubmitReviewModal game={game}/>}
+
+                        buttonText='Post a Review'
+                    />
+                )}
+            </div>
         </>
     )
 }
