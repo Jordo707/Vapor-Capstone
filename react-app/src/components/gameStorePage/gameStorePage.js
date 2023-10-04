@@ -6,6 +6,7 @@ import OpenModalButton from "../OpenModalButton";
 import { getSingleGame } from "../../store/games";
 import { useHistory, useParams } from "react-router-dom";
 import DeleteGameModal from "../deleteGameModal/deleteGameModal";
+import UpdateGameForm from "../updateGameModal/updateGameModal";
 
 const GameStorePage = () => {
 
@@ -40,7 +41,12 @@ const GameStorePage = () => {
                     buttonText='Remove Game'
                 />
             </span>
-
+            <span hidden={sessionUserId !== game.developer_id}>
+                <OpenModalButton
+                    modalComponent={<UpdateGameForm game={game}/>}
+                    buttonText='Update Game'
+                />
+            </span>
         </>
     )
 }

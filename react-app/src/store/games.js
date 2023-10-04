@@ -1,5 +1,7 @@
 //react-app/src/store/games.js
 
+import { json } from "sequelize"
+
 // Constants
 const GET_ALL_GAMES = 'games/GET_ALL_GAMES'
 const GET_ONE_GAME = 'games/GET_ONE_GAME'
@@ -21,6 +23,11 @@ const getOneGame = (game) => ({
 
 const removeGame = (gameId) => ({
     type:DELETE_GAME,
+    payload:gameId
+})
+
+const editGame = (gameId) => ({
+    type:EDIT_GAME,
     payload:gameId
 })
 
@@ -82,6 +89,22 @@ export const deleteGame = (gameId) => async (dispatch) => {
         console.log('HIT DELETE GAME THUNK')
         return gameId
     }
+}
+
+export const updateGame = (updatedGame) => async (dispatch) => {
+    console.log("THUNK UPDATED GAME ID: ",updatedGame.id)
+    const response = await fetch(`/api/games/${updatedGame.id}`, {
+        method:'PUT',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(updatedGame)})
+    console.log('UPDATE GAME THUNK RESPONSE: ', response)
+    if (response.ok) {
+        dispatch(getOneGame(updatedGame))
+        return updatedGame
+    }
+
 }
 
 // Reducer
