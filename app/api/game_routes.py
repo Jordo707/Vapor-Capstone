@@ -1,3 +1,5 @@
+# app/api/game_routes.py
+
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Game, User, Review, db
@@ -45,3 +47,14 @@ def create_game():
         db.session.commit()
         return new_game.to_dict()
     return
+
+@game_routes.route('/<game_id>', methods=['DELETE'])
+@login_required
+def delete_game(game_id):
+    game_to_delete = Game.query.get(game_id)
+    db.session.delete(game_to_delete)
+    db.session.commit()
+    print('--------------------------------')
+    print('GAME ', game_to_delete.id, ' DELETED' )
+    print('--------------------------------')
+    return {'message':'Game successfully deleted'}

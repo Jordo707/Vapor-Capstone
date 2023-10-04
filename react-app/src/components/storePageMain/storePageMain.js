@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, {useEffect, useState} from "react";
 import OpenModalButton from "../OpenModalButton";
 import { getAllGames } from "../../store/games";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import NewGameForm from "../NewGameModal/newGameModal";
 
 const StorePageMain = () => {
@@ -32,6 +32,7 @@ const StorePageMain = () => {
                         <h3>{game.name}</h3>
                         <p>{game.description}</p>
                         <p>Price: ${game.price}</p>
+                        <Link to={`/store/${game.id}`}>Store Page</Link>
                     </div>
                 ))}
             </div>

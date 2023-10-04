@@ -3,7 +3,7 @@
 // Constants
 const GET_ALL_GAMES = 'games/GET_ALL_GAMES'
 const GET_ONE_GAME = 'games/GET_ONE_GAME'
-const GET_USER__OWNED_GAMES ='games/GET_USER__OWNED_GAMES'
+const GET_USER_OWNED_GAMES ='games/GET_USER__OWNED_GAMES'
 const GET_WISHLIST_GAMES ='games/GET_WISHLIST_GAMES'
 const EDIT_GAME ='games/EDIT_GAME'
 const DELETE_GAME ='games/DELETE_GAME'
@@ -17,6 +17,11 @@ const getGames = (allGames) => ({
 const getOneGame = (game) => ({
     type:GET_ONE_GAME,
     payload: game
+})
+
+const removeGame = (gameId) => ({
+    type:DELETE_GAME,
+    payload:gameId
 })
 
 // Thunks
@@ -68,6 +73,17 @@ export const postGame = (game) => async (dispatch) => {
     }
 }
 
+export const deleteGame = (gameId) => async (dispatch) => {
+    const response = await fetch(`/api/games/${gameId}`, {
+        method:'DELETE',
+    });
+    if (response.ok) {
+        dispatch(removeGame(gameId))
+        console.log('HIT DELETE GAME THUNK')
+        return gameId
+    }
+}
+
 // Reducer
 
 const initialState = {
@@ -86,6 +102,11 @@ export default function gamesReducer(state = initialState, action) {
             return {
                 ...state,
                 selectedGame: action.payload
+            }
+        case DELETE_GAME:
+            return {
+                ...state,
+                selectedGame: {}
             }
         default:
             return state;
