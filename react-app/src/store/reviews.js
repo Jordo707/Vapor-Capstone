@@ -27,6 +27,23 @@ export const postReview = (review) => async (dispatch) => {
     return 'Failed to Create New Review :-('
 }
 
+export const updateReview = (review) => async (dispatch) => {
+    console.log('HIT UPDATE REVIEW THUNK')
+    console.log('THUNK UPDATED REVIEW ID', review.id)
+    const response = await fetch(`/api/reviews/${review.id}`, {
+        method:'PUT',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(review)})
+    console.log('UPDATED REVIEW THUNK RESPONSE:', response)
+    if (response.ok) {
+        const updatedReview = await response.json();
+        dispatch(getOneGame(review.id));
+        return updatedReview
+    }
+}
+
 // Reducer
 const initialState = {
 

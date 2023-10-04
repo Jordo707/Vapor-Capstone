@@ -8,6 +8,7 @@ import { useHistory, useParams } from "react-router-dom";
 import DeleteGameModal from "../deleteGameModal/deleteGameModal";
 import UpdateGameForm from "../updateGameModal/updateGameModal";
 import SubmitReviewModal from "../submitReviewModal/submitReviewModal";
+import UpdateReviewModal from "../updateReviewModal/updateReviewModal";
 
 const GameStorePage = () => {
 
@@ -65,10 +66,25 @@ const GameStorePage = () => {
                         <h4>{review.review.recomended ? 'Recommended' : 'Not Recommended'}</h4>
                         <p>{review.review.review_text}</p>
                         <p>{review.user.username}</p>
+                        {review.user.id === sessionUserId && (
+                            <div>
+                                <OpenModalButton
+
+
+                                    buttonText='Delete this Review'
+                                />
+                                <OpenModalButton
+                                    modalComponent={<UpdateReviewModal review={review.review}/>}
+
+                                    buttonText='Update Your Review'
+                                />
+                            </div>
+                        )}
                     </div>
                     ))
                 )}
                 {shouldRenderButton && (
+
                     <OpenModalButton
                         modalComponent={<SubmitReviewModal game={game}/>}
 

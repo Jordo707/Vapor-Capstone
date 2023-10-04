@@ -102,4 +102,4 @@ def update_game(game_id):
         game_to_update.description = data['description']
         db.session.commit()
         return jsonify(game_to_update.to_dict()), 200
-    return 'Failed to Update Game'
+    return 'Failed to Update Game :-('

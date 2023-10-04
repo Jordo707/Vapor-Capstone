@@ -34,3 +34,20 @@ def create_review(game_id):
         db.session.commit()
         return new_review.to_dict()
     return
+
+@review_routes.route('/<review_id>', methods=['PUT'])
+@login_required
+def update_review(review_id):
+    form = ReviewForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        review_to_update = Review.query.get(review_id)
+        print('---------------------------------')
+        print('REVIEW TO UPDATE', review_to_update)
+        print('---------------------------------')
+        data = form.data
+        review_to_update.recomended = data['recomended']
+        review_to_update.review_text = data['review_text']
+        db.session.commit()
+        return jsonify(review_to_update.to_dict()), 200
+    return 'Failed to Update Review :-('
