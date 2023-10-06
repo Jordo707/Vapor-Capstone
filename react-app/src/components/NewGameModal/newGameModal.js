@@ -111,8 +111,8 @@ const NewGameForm = () => {
                 </div>
 
                 <div className="create-new-game-buttons-container">
-                    <button className="create-new-game-cancel-button-modal" type='button' onClick={handleCancelClick}>Cancel</button>
                     <button className="create-new-game-button-modal" type='submit'>Publish Your Game</button>
+                    <button className="create-new-game-cancel-button-modal" type='button' onClick={handleCancelClick}>Cancel</button>
                 </div>
 
             </form>

@@ -102,8 +102,8 @@ const SubmitReviewModal = () => {
                 </div>
 
                 <div className="create-new-review-button-container">
-                    <button className="create-new-review-cancel-button" type="button" onClick={handleCancelClick}>Cancel</button>
                     <button className="create-new-review-button" type='button' onClick={handleReviewCreate}>Post Your Review</button>
+                    <button className="create-new-review-cancel-button" type="button" onClick={handleCancelClick}>Cancel</button>
                 </div>
             </form>
         </div>
