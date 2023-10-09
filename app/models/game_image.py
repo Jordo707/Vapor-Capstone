@@ -14,7 +14,7 @@ class Game_Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     image = db.Column(db.String, nullable=False)
     preview = db.Column(db.Boolean, nullable=False)
-    game_id = db.Column(db.Integer, db.foreignKey(add_prefix_for_prod('games.id')), nullable=False)
+    game_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('games.id')), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
