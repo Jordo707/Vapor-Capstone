@@ -17,7 +17,7 @@ const GameStorePage = () => {
     const dispatch = useDispatch();
     const game = useSelector( state => state.games.selectedGame.game)
     const reviews = useSelector (state => state.games.selectedGame.reviews)
-    const sessionUserId = useSelector(state => state.session.user.id)
+    const sessionUserId = useSelector(state => state.session.user?.id)
 
     console.log('SINGLE GAME REVIEWS',reviews)
 

@@ -2,7 +2,7 @@
 
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Game, User, Review, db
+from app.models import Game, User, Review, db, Game_Image
 from app.forms.game_form import GameForm
 
 game_routes = Blueprint('games', __name__)
@@ -10,20 +10,36 @@ game_routes = Blueprint('games', __name__)
 @game_routes.route('')
 def all_games():
     """
-    Get all games
+    Get all games with their preview images
     """
     games = Game.query.all()
-    return {'games':[game.to_dict() for game in games]}
+
+    games_with_images = []
+
+    for game in games:
+        preview_image = Game_Image.query.filter_by(game_id=game.id, preview=True).first()
+
+        game_data = {
+            'id': game.id,
+            'name': game.name,
+            'description': game.description,
+            'price': game.price,
+            'developer_id': game.developer_id,
+            'preview_image_url': preview_image.image if preview_image else "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo0nwDRO1dYTQIhm9Sz8sA20Wqk8xaiNyhQg&usqp=CAU",
+        }
+
+        games_with_images.append(game_data)
+
+    return {'games': games_with_images}
 
 @game_routes.route('/<game_id>')
 def single_game(game_id):
     """
     Get details of a single game and its reviews with user information
     """
-    # Fetch game details
+
     game = Game.query.get(game_id)
 
-    # Fetch reviews associated with the game and join with the User model
     reviews = (
         db.session.query(Review, User)
         .filter(Review.game_id == game_id)
@@ -31,7 +47,6 @@ def single_game(game_id):
         .all()
     )
 
-    # Create a list of dictionaries to return game and reviews with user information
     reviews_with_users = [
         {
             "review": review.to_dict(),
@@ -40,9 +55,27 @@ def single_game(game_id):
         for review, user in reviews
     ]
 
+    game_images = db.session.query(Game_Image).filter(Game_Image.game_id == game_id).all()
+
+    print('--------------------------')
+    print('GAME IMAGES', game_images)
+    print('--------------------------')
+
+    game_images_dict = [
+        {
+            "image": image.to_dict() if image else None
+        }
+        for image in game_images
+    ]
+
+    # Print debug information for each image
+    for image_dict in game_images_dict:
+        print('Image Dictionary:', image_dict)
+
     game_data = {
         "game": game.to_dict(),
         "reviews": reviews_with_users,
+        "images": game_images_dict
     }
 
     return game_data

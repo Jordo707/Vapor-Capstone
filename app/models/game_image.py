@@ -20,3 +20,13 @@ class Game_Image(db.Model):
 
     # Relationships
     image_game = db.relationship('Game', back_populates='game_pics')
+
+    def to_dict(self):
+        return {
+            'id':self.id,
+            'image':self.image,
+            'preview':self.preview,
+            'game_id':self.game_id,
+            'created_at':self.created_at,
+            'updated_at':self.updated_at,
+        }
