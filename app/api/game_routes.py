@@ -4,6 +4,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Game, User, Review, db, Game_Image
 from app.forms.game_form import GameForm
+from app.api.aws_uploads import upload_file_to_s3, get_unique_filename
 
 game_routes = Blueprint('games', __name__)
 
