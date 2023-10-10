@@ -1,7 +1,9 @@
-# /migrations/versions/75d82ed253e3_.py
+# /migrations/versions/ab216799b232_.py
+# 75d82ed253e3
+
 """empty message
 
-Revision ID: 75d82ed253e3
+Revision ID: ab216799b232
 Revises:
 Create Date: 2023-10-10 11:01:14.483222
 
@@ -14,7 +16,7 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 # revision identifiers, used by Alembic.
-revision = '75d82ed253e3'
+revision = 'ab216799b232'
 down_revision = None
 branch_labels = None
 depends_on = None
