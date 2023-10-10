@@ -65,6 +65,7 @@ export const getSingleGame = (gameId) => async (dispatch) => {
 }
 
 export const postGame = (game) => async (dispatch) => {
+    console.log('POST GAME PAYLOAD', game)
     const response = await fetch('/api/games', {
         method:'POST',
         headers: {

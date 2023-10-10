@@ -14,11 +14,13 @@ const NewGameForm = () => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState(null);
     const [description, setDescription] = useState('');
+    const [previewImage, setPreviewImage] = useState('')
     const { closeModal } = useModal();
 
     const updateName = (e) => setName(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
+    const updatePreviewImage = (e) => setPreviewImage(e.target.value);
 
     const handleGameCreate = async (e) => {
         e.preventDefault();
@@ -38,12 +40,17 @@ const NewGameForm = () => {
         if (description.trim().length < 10) {
             validationErrors.description = 'Description must be at least ten characters in length'
         }
+        if (previewImage.trim().length < 1) {
+            validationErrors.previewImage = 'Preview Image is required'
+        }
+
 
         const payload = {
             name: name.trim(),
             price: price,
             developer_id: userId,
-            description: description
+            description: description,
+            preview_image: previewImage
         };
         if (Object.keys(validationErrors).length == 0) {
             try {
@@ -71,11 +78,11 @@ const NewGameForm = () => {
         <div className="new-game-container">
             <h2>Create a New Game</h2>
             <form className="new-game-form" onSubmit={handleGameCreate}>
-                <span className="game-errors">{errorMessages.name}</span>
                 <div>
                     <label>
                         Game Title
                     </label>
+                    <div className="game-errors">{errorMessages.name}</div>
                     <input
                         type='text'
                         placeholder="Game Title"
@@ -91,8 +98,10 @@ const NewGameForm = () => {
                     <label>
                         Price
                     </label>
+                    <div className="game-errors">{errorMessages.price}</div>
                     <input
                         type="number"
+                        placeholder="USD"
                         step="0.01"
                         value={price}
                         onChange={updatePrice}
@@ -103,16 +112,30 @@ const NewGameForm = () => {
                     <label>
                         Description
                     </label>
-                    <input
-                        type='text'
+                    <div className="game-errors">{errorMessages.description}</div>
+                    <textarea
+                        placeholder="Describe the game"
                         value={description}
                         onChange={updateDescription}
                     />
                 </div>
 
+                <div>
+                    <label>
+                        Preview Image
+                    </label>
+                    <div className="game-errors">{errorMessages.previewImage}</div>
+                    <input
+                        type="text"
+                        placeholder="Image URL"
+                        value={previewImage}
+                        onChange={updatePreviewImage}
+                    />
+                </div>
+
                 <div className="create-new-game-buttons-container">
-                    <button className="create-new-game-cancel-button-modal" type='button' onClick={handleCancelClick}>Cancel</button>
                     <button className="create-new-game-button-modal" type='submit'>Publish Your Game</button>
+                    <button className="create-new-game-cancel-button-modal" type='button' onClick={handleCancelClick}>Cancel</button>
                 </div>
 
             </form>

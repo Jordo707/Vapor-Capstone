@@ -57,7 +57,6 @@ const SubmitReviewModal = () => {
                 const newReviewId = response.id;
                 await dispatch(getSingleGame(gameId));
                 closeModal();
-                // history.push(`/store/${newReviewId.game_id}`)
             } catch (error) {
                 setErrorMessages({ overall: error.toString().slice(7) });
             }
@@ -102,8 +101,8 @@ const SubmitReviewModal = () => {
                 </div>
 
                 <div className="create-new-review-button-container">
+                    <button className="create-new-review-button" type='submit' onClick={handleReviewCreate}>Post Your Review</button>
                     <button className="create-new-review-cancel-button" type="button" onClick={handleCancelClick}>Cancel</button>
-                    <button className="create-new-review-button" type='button' onClick={handleReviewCreate}>Post Your Review</button>
                 </div>
             </form>
         </div>
