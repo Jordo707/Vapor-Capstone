@@ -1,14 +1,18 @@
+# /migrations/versions/75d82ed253e3_.py
 """empty message
 
 Revision ID: 75d82ed253e3
-Revises: 
+Revises:
 Create Date: 2023-10-10 11:01:14.483222
 
 """
 from alembic import op
 import sqlalchemy as sa
+import os
 
 
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 # revision identifiers, used by Alembic.
 revision = '75d82ed253e3'
 down_revision = None
@@ -32,6 +36,10 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+
     op.create_table('games',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
@@ -44,6 +52,10 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE games SET SCHEMA {SCHEMA};")
+
     op.create_table('game_images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('image', sa.String(), nullable=False),
@@ -54,6 +66,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['game_id'], ['games.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE game_images SET SCHEMA {SCHEMA};")
+
     op.create_table('reviews',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('recomended', sa.Boolean(), nullable=False),
@@ -66,6 +82,10 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###
 
 
