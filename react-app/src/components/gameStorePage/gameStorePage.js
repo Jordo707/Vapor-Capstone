@@ -35,7 +35,7 @@ const GameStorePage = () => {
 
     const isDeveloper = game.developer_id == sessionUserId;
     const hasReviewed = reviews.some((review) => review.review.user_id === sessionUserId);
-    const shouldRenderButton = !isDeveloper && !hasReviewed;
+    const shouldRenderButton = !isDeveloper && !hasReviewed && sessionUserId;
 
     return (
         <>
