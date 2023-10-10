@@ -14,11 +14,13 @@ const NewGameForm = () => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState(null);
     const [description, setDescription] = useState('');
+    const [previewImage, setPreviewImage] = useState(null)
     const { closeModal } = useModal();
 
     const updateName = (e) => setName(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
+    const updatePreviewImage = (e) => setPreviewImage(e.target.value);
 
     const handleGameCreate = async (e) => {
         e.preventDefault();
@@ -43,7 +45,8 @@ const NewGameForm = () => {
             name: name.trim(),
             price: price,
             developer_id: userId,
-            description: description
+            description: description,
+            preview_image: previewImage
         };
         if (Object.keys(validationErrors).length == 0) {
             try {
@@ -93,6 +96,7 @@ const NewGameForm = () => {
                     </label>
                     <input
                         type="number"
+                        placeholder="USD"
                         step="0.01"
                         value={price}
                         onChange={updatePrice}
@@ -103,10 +107,22 @@ const NewGameForm = () => {
                     <label>
                         Description
                     </label>
-                    <input
-                        type='text'
+                    <textarea
+                        placeholder="Describe the game"
                         value={description}
                         onChange={updateDescription}
+                    />
+                </div>
+
+                <div>
+                    <label>
+                        Preview Image
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Image URL"
+                        value={previewImage}
+                        onChange={updatePreviewImage}
                     />
                 </div>
 

@@ -94,13 +94,32 @@ def create_game():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         data = form.data
+        print('--------------------------')
+        print('DATA', data)
+        print('--------------------------')
         new_game = Game(
             name = data['name'],
             price = data['price'],
             developer_id = user_id,
             description = data['description']
         )
+        print('-------------------------------')
+        print('NEW GAME', new_game.to_dict())
+        print('-------------------------------')
         db.session.add(new_game)
+        db.session.commit()
+        print('-------------------------------')
+        print('NEW GAME', new_game.to_dict()['id'])
+        print('-------------------------------')
+        new_preview_image = Game_Image(
+            image = data['preview_image'],
+            preview = True,
+            game_id = new_game.to_dict()['id']
+        )
+        print('-------------------------------')
+        print('NEW GAME IMAGE', new_preview_image)
+        print('-------------------------------')
+        db.session.add(new_preview_image)
         db.session.commit()
         return new_game.to_dict()
     return
