@@ -10,6 +10,8 @@ import UpdateGameForm from "../updateGameModal/updateGameModal";
 import SubmitReviewModal from "../submitReviewModal/submitReviewModal";
 import UpdateReviewModal from "../updateReviewModal/updateReviewModal";
 import DeleteReviewModal from "../deleteReviewModal/deleteReviewModal";
+import AliceCarousel from "react-alice-carousel";
+import 'react-alice-carousel/lib/alice-carousel.css';
 
 const GameStorePage = () => {
 
@@ -18,6 +20,20 @@ const GameStorePage = () => {
     const game = useSelector( state => state.games.selectedGame.game)
     const reviews = useSelector (state => state.games.selectedGame.reviews)
     const sessionUserId = useSelector(state => state.session.user?.id)
+    const gameImages = useSelector(state => state.games.selectedGame.images)
+
+    console.log("GAME IMAGES",gameImages)
+
+    const handleDragStart = (e) => e.preventDefault();
+
+    const carouselImages = []
+
+    if (gameImages) {
+        gameImages.forEach(gameImage => {
+          console.log("GAME IMAGE", gameImage.image.image);
+          carouselImages.push(<img className="game-image" src={gameImage.image.image} onDragStart={handleDragStart} role="presentation"/>)
+        });
+    }
 
     console.log('SINGLE GAME REVIEWS',reviews)
 
@@ -39,10 +55,22 @@ const GameStorePage = () => {
 
     return (
         <>
-            <div className="game-store-div">
-                <h3>{game.name}</h3>
-                <p>{game.description}</p>
-                <p>Price: ${game.price}</p>
+            <div
+                className="game-store-div"
+            >
+                    <h3>{game.name}</h3>
+                    <p>{game.description}</p>
+                    <p>Price: ${game.price}</p>
+            </div>
+
+            <div className="images-div">
+                <AliceCarousel
+                    mouseTracking={true}
+                    items={carouselImages}
+                    autoPlay={true}
+                    autoPlayInterval={4000}
+                    infinite={true}
+                />
             </div>
 
             <span hidden={sessionUserId !== game.developer_id}>
