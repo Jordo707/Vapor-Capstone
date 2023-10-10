@@ -14,7 +14,7 @@ const NewGameForm = () => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState(null);
     const [description, setDescription] = useState('');
-    const [previewImage, setPreviewImage] = useState(null)
+    const [previewImage, setPreviewImage] = useState('')
     const { closeModal } = useModal();
 
     const updateName = (e) => setName(e.target.value);
@@ -40,6 +40,10 @@ const NewGameForm = () => {
         if (description.trim().length < 10) {
             validationErrors.description = 'Description must be at least ten characters in length'
         }
+        if (previewImage.trim().length < 1) {
+            validationErrors.previewImage = 'Preview Image is required'
+        }
+
 
         const payload = {
             name: name.trim(),
@@ -74,11 +78,11 @@ const NewGameForm = () => {
         <div className="new-game-container">
             <h2>Create a New Game</h2>
             <form className="new-game-form" onSubmit={handleGameCreate}>
-                <span className="game-errors">{errorMessages.name}</span>
                 <div>
                     <label>
                         Game Title
                     </label>
+                    <div className="game-errors">{errorMessages.name}</div>
                     <input
                         type='text'
                         placeholder="Game Title"
@@ -94,6 +98,7 @@ const NewGameForm = () => {
                     <label>
                         Price
                     </label>
+                    <div className="game-errors">{errorMessages.price}</div>
                     <input
                         type="number"
                         placeholder="USD"
@@ -107,6 +112,7 @@ const NewGameForm = () => {
                     <label>
                         Description
                     </label>
+                    <div className="game-errors">{errorMessages.description}</div>
                     <textarea
                         placeholder="Describe the game"
                         value={description}
@@ -118,6 +124,7 @@ const NewGameForm = () => {
                     <label>
                         Preview Image
                     </label>
+                    <div className="game-errors">{errorMessages.previewImage}</div>
                     <input
                         type="text"
                         placeholder="Image URL"
