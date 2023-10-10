@@ -4,6 +4,7 @@ import OpenModalButton from "../OpenModalButton";
 import { getAllGames } from "../../store/games";
 import { useHistory, Link } from "react-router-dom";
 import NewGameForm from "../NewGameModal/newGameModal";
+import './storePageMain.css'
 
 const StorePageMain = () => {
 
@@ -29,6 +30,10 @@ const StorePageMain = () => {
             <div className="store-games">
                 {allGames.map((game) => (
                     <div className="game-card" key={game.id}>
+                        <img
+                            className="game-preview-image"
+                            src={game.preview_image_url || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo0nwDRO1dYTQIhm9Sz8sA20Wqk8xaiNyhQg&usqp=CAU"}
+                        />
                         <h3>{game.name}</h3>
                         <p>{game.description}</p>
                         <p>Price: ${game.price}</p>

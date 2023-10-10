@@ -32,8 +32,8 @@ const UpdateGameForm = () => {
         if (name.trim().length < 3) {
             validationErrors.name = 'Game name must be at least three characters long'
         }
-        if (price < 0) {
-            validationErrors.price = 'Price cannot be less than zero'
+        if (price <= 0) {
+            validationErrors.price = 'Price cannot be less than or equal to zero'
         }
         if (description.trim() == '') {
             validationErrors.description = 'Description is required'
@@ -87,6 +87,7 @@ const UpdateGameForm = () => {
                     <label>
                         Game Title
                     </label>
+                    <div className="game-errors">{errorMessages.name}</div>
                     <input
                         type='text'
                         placeholder="Game Title"
@@ -102,6 +103,7 @@ const UpdateGameForm = () => {
                     <label>
                         Price
                     </label>
+                    <div className="game-errors">{errorMessages.price}</div>
                     <input
                         type="number"
                         step="0.01"
@@ -114,6 +116,7 @@ const UpdateGameForm = () => {
                     <label>
                         Description
                     </label>
+                    <div className="game-errors">{errorMessages.description}</div>
                     <input
                         type='text'
                         value={description}
@@ -122,8 +125,8 @@ const UpdateGameForm = () => {
                 </div>
 
                 <div className="create-new-game-buttons-container">
-                    <button className="create-new-game-cancel-button-modal" type='button' onClick={handleCancelClick}>Cancel</button>
                     <button className="create-new-game-button-modal" type='submit'>Update Your Game</button>
+                    <button className="create-new-game-cancel-button-modal" type='button' onClick={handleCancelClick}>Cancel</button>
                 </div>
 
             </form>
