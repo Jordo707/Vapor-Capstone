@@ -4,7 +4,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Game, User, Review, db, Game_Image
 from app.forms.game_form import GameForm
-from app.api.aws_uploads import upload_file_to_s3, get_unique_filename
+from app.api.aws_uploads import upload_file_to_s3, get_unique_filename, remove_file_from_s3
 
 game_routes = Blueprint('games', __name__)
 
@@ -112,14 +112,29 @@ def create_game():
         print('-------------------------------')
         print('NEW GAME', new_game.to_dict()['id'])
         print('-------------------------------')
+        # new_preview_image = Game_Image(
+        #     image = data['preview_image'],
+        #     preview = True,
+        #     game_id = new_game.to_dict()['id']
+        # )
+        image = data['preview_image']
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+        print('-------------------------------')
+        print('NEW GAME IMAGE UPLOAD', upload)
+        print('-------------------------------')
+        if "url" not in upload:
+        # if the dictionary doesn't have a url key
+        # it means that there was an error when you tried to upload
+        # so you send back that error message (and you printed it above)
+            return 'FAILED TO UPLOAD IMAGE'
+        url = upload['url']
         new_preview_image = Game_Image(
-            image = data['preview_image'],
+            image = url,
             preview = True,
             game_id = new_game.to_dict()['id']
         )
-        print('-------------------------------')
-        print('NEW GAME IMAGE', new_preview_image)
-        print('-------------------------------')
+
         db.session.add(new_preview_image)
         db.session.commit()
         return new_game.to_dict()

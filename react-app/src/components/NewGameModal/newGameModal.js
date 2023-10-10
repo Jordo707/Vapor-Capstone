@@ -20,7 +20,7 @@ const NewGameForm = () => {
     const updateName = (e) => setName(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
     const updateDescription = (e) => setDescription(e.target.value);
-    const updatePreviewImage = (e) => setPreviewImage(e.target.value);
+    const updatePreviewImage = (e) => setPreviewImage(e.target.files[0]);
 
     const handleGameCreate = async (e) => {
         e.preventDefault();
@@ -39,6 +39,9 @@ const NewGameForm = () => {
         }
         if (description.trim().length < 10) {
             validationErrors.description = 'Description must be at least ten characters in length'
+        }
+        if (!previewImage) {
+            validationErrors.preview_image = 'Preview image is required';
         }
 
         const payload = {
@@ -118,10 +121,9 @@ const NewGameForm = () => {
                     <label>
                         Preview Image
                     </label>
-                    <input
-                        type="text"
-                        placeholder="Image URL"
-                        value={previewImage}
+                    <input className="preview-image"
+                        type="file"
+                        accept="image/*"
                         onChange={updatePreviewImage}
                     />
                 </div>

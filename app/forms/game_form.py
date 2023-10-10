@@ -9,4 +9,4 @@ class GameForm(FlaskForm):
     price = FloatField('price', validators=[DataRequired()])
     description = StringField('description', validators=[DataRequired()])
     # preview_image = StringField('preview_image', validators=[DataRequired()])
-    preview_image = FileField('preview_image', validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
+    preview_image = FileField('preview_image', validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])

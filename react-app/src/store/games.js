@@ -70,8 +70,10 @@ export const postGame = (game) => async (dispatch) => {
         method:'POST',
         headers: {
             'Content-Type':'application/json'
+            // 'Content-Type':'multipart/form-data'
         },
-        body: JSON.stringify(game)
+        // body: JSON.stringify(game)
+        body: game
     })
     console.log('POST GAME RESPONSE: ', response)
     if(response.ok) {
