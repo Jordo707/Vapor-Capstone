@@ -14,7 +14,7 @@ const NewGameForm = () => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState(null);
     const [description, setDescription] = useState('');
-    const [previewImage, setPreviewImage] = useState('')
+    const [previewImage, setPreviewImage] = useState('');
     const { closeModal } = useModal();
 
     const updateName = (e) => setName(e.target.value);
