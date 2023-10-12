@@ -1,0 +1,38 @@
+/* react-app/src/components/gameStorePage/GameStorePage.css */
+
+.game-header {
+    display: flex;
+}
+
+.game-store-div {
+    color: #cad2e0;
+    background-color: #20263a;
+    padding: 20px;
+    width: 50%;
+}
+
+.images-div {
+    width: 50%;
+    height: 100%;
+    position: relative; /* Add relative positioning */
+    overflow: hidden; /* Hide overflow content */
+}
+
+.game-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: grab;
+}
+
+.game-image:active {
+    cursor: grabbing;
+}
+
+.review-box p {
+    max-width: 100%;
+    word-wrap: break-word;
+}
+img {
+    height: 100%;
+}

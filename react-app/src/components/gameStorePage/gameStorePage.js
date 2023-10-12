@@ -12,6 +12,7 @@ import UpdateReviewModal from "../updateReviewModal/updateReviewModal";
 import DeleteReviewModal from "../deleteReviewModal/deleteReviewModal";
 import AliceCarousel from "react-alice-carousel";
 import 'react-alice-carousel/lib/alice-carousel.css';
+import './GameStorePage.css';
 
 const GameStorePage = () => {
 
@@ -55,22 +56,22 @@ const GameStorePage = () => {
 
     return (
         <>
-            <div
-                className="game-store-div"
-            >
+            <div className="game-header">
+                <div className="images-div">
+                    <AliceCarousel
+                        mouseTracking={true}
+                        items={carouselImages}
+                        autoPlay={true}
+                        autoPlayInterval={4000}
+                        infinite={true}
+                        />
+                </div>
+
+                <div className="game-store-div">
                     <h3>{game.name}</h3>
                     <p>{game.description}</p>
                     <p>Price: ${game.price}</p>
-            </div>
-
-            <div className="images-div">
-                <AliceCarousel
-                    mouseTracking={true}
-                    items={carouselImages}
-                    autoPlay={true}
-                    autoPlayInterval={4000}
-                    infinite={true}
-                />
+                </div>
             </div>
 
             <span hidden={sessionUserId !== game.developer_id}>

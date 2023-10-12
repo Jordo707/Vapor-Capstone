@@ -1,1 +1,29 @@
 /* TODO Add site wide styles */
+
+body {
+    color: #cad2e0;
+    background-color: #20263a;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+button {
+    background-color: #6ca100;
+    color: #d4e14b;
+    cursor: pointer;
+    padding: 10px;
+}
+
+button:hover {
+    background-color: #81be05;
+    color: #fcffd5;
+    transition: .5s;
+    transform: .5s ease;
+}
+
+
+a {
+    color: #cad2e0;
+    text-decoration: none;
+    font-weight: bold;
+}
