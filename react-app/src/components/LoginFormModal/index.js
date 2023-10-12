@@ -21,6 +21,15 @@ function LoginFormModal() {
     }
   };
 
+  const handleDemoLogin = async () => {
+    const data = await dispatch(login("demo@aa.io", "password"));
+    if (!data) {
+      closeModal();
+    } else {
+      setErrors(data);
+    }
+  };
+
   return (
     <>
       <h1>Log In</h1>
@@ -50,6 +59,9 @@ function LoginFormModal() {
         </label>
         <button type="submit">Log In</button>
       </form>
+      <button className="demo-user-login" onClick={handleDemoLogin}>
+            Login as Demo
+      </button>
     </>
   );
 }
