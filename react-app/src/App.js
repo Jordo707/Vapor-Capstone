@@ -34,7 +34,8 @@ function App() {
             <StorePageMain />
           </Route>
           <Route exact path='/'>
-            <LandingPage/>
+            <StorePageMain />
+            {/* <LandingPage/> */}
           </Route>
         </Switch>
       )}
