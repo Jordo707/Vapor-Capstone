@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { postReview } from "../../store/reviews";
 import { getSingleGame } from "../../store/games";
+import './submitReviewModal.css'
 
 const SubmitReviewModal = () => {
     const userId = useSelector(state => state.session.user.id);
@@ -89,8 +90,7 @@ const SubmitReviewModal = () => {
                     <label>
                         Explain your reasoning:
                     </label>
-                    <input
-                        type="text"
+                    <textarea
                         placeholder="Your thoughts here..."
                         minLength={3}
                         maxLength={255}

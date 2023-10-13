@@ -7,6 +7,7 @@
 .game-store-div {
     color: #cad2e0;
     background-color: #20263a;
+    word-wrap: break-word;
     padding: 20px;
     width: 50%;
 }
@@ -14,8 +15,7 @@
 .images-div {
     width: 50%;
     height: 100%;
-    position: relative; /* Add relative positioning */
-    overflow: hidden; /* Hide overflow content */
+    position: relative;
 }
 
 .game-image {

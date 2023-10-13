@@ -1,24 +1,27 @@
-/* LoginFormModal.css */
+/* SubmitReviewModal.css */
 
-.login-form-container {
+.new-review-container {
     background-color: #151826;
     border-radius: 10px;
     padding: 20px;
   }
 
-  .login-form-container h1 {
+  .new-review-container h2 {
     color: #cad2e0;
   }
 
-  .login-form-container label {
+  .new-review-container label {
     display: block;
     color: #cad2e0;
     font-weight: bold;
     margin-top: 15px;
   }
 
-  .login-form-container input[type="text"],
-  .login-form-container input[type="password"] {
+  .new-review-container input[type="checkbox"] {
+    margin-right: 10px;
+  }
+
+  .new-review-container textarea {
     background-color: #373c50;
     color: #cad2e0;
     padding: 10px;
@@ -28,18 +31,17 @@
     width: 100%;
   }
 
-  .login-form-container input[type="text"]::placeholder,
-  .login-form-container input[type="password"]::placeholder {
+  .new-review-container textarea::placeholder {
     color: #cad2e0;
   }
 
-  .login-form-errors {
-    color: #ff6b6b;
-    font-size: 14px;
-    margin-top: 5px;
+  .new-review-container .create-new-review-button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .login-form-container button {
+  .new-review-container button {
     background-color: #6ca100;
     color: #d4e14b;
     cursor: pointer;
@@ -49,25 +51,24 @@
     margin-top: 15px;
   }
 
-  .login-form-container button:hover {
+  .new-review-container button:hover {
     background-color: #81be05;
     color: #fcffd5;
     transition: 0.5s;
     transform: scale(1.01);
   }
 
-  .demo-user-login {
-    background-color: #6ca100;
-    color: #d4e14b;
+  .new-review-container .create-new-review-cancel-button {
+    background-color: #ff6b6b;
+    color: #fff;
     cursor: pointer;
     padding: 10px 20px;
     transition: background-color 0.5s, color 0.5s;
-    margin-top: 15px;
   }
 
-  .demo-user-login:hover {
-    background-color: #81be05;
-    color: #fcffd5;
+  .new-review-container .create-new-review-cancel-button:hover {
+    background-color: #ff4949;
+    color: #fff;
     transition: 0.5s;
     transform: scale(1.01);
   }
