@@ -108,7 +108,22 @@ export const updateGame = (updatedGame) => async (dispatch) => {
         dispatch(getOneGame(updatedGameData));
         return updatedGameData;
     }
+}
 
+export const postGameImage = (gameId) => async (dispatch) => {
+    console.log('HIT POST IMAGE THUNK')
+    console.log('THUNK NEW IMAGE GAME ID', gameId)
+    const response = await fetch(`/api/games/${gameId}`,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        }
+    })
+    console.log('THUNK NEW IMAGE POST RESPONSE', response)
+    if(response.ok) {
+        const newImage = await response.json();
+        return newImage;
+    }
 }
 
 // Reducer
@@ -126,7 +141,11 @@ export default function gamesReducer(state = initialState, action) {
         case GET_ALL_GAMES:
             return {
                 ...state,
-                allGames: action.payload
+                allGames: action.payload,
+                selectedGame: {
+                    game: {},
+                    reviews: [],
+                }
             }
         case GET_ONE_GAME:
             return {

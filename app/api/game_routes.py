@@ -4,6 +4,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Game, User, Review, db, Game_Image
 from app.forms.game_form import GameForm
+from app.forms.image_form import ImageForm
 
 game_routes = Blueprint('games', __name__)
 
@@ -155,3 +156,20 @@ def update_game(game_id):
         db.session.commit()
         return jsonify(game_to_update.to_dict()), 200
     return 'Failed to Update Game :-('
+
+@game_routes.route('/<game_id>', methods=['POST'])
+@login_required
+def add_new_images(game_id):
+    form = ImageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        data = form.data
+        new_image = Game_Image(
+            image = data['url'],
+            preview = False,
+            game_id = game_id
+        )
+        db.session.add(new_image)
+        db.session.commit()
+        return new_image.to_dict()
+    return 'failed to create new image :-('
