@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { getSingleGame, getAllGames, postGame } from "../../store/games";
 import { useModal } from "../../context/Modal";
+import "./newGameModal.css"
 
 const NewGameForm = () => {
     const userId = useSelector(state => state.session.user.id);
@@ -15,7 +16,7 @@ const NewGameForm = () => {
     const [price, setPrice] = useState(null);
     const [description, setDescription] = useState('');
     const [previewImage, setPreviewImage] = useState('')
-    const { closeModal } = useModal();
+    const { isOpen, openModal,closeModal } = useModal();
 
     const updateName = (e) => setName(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
@@ -31,8 +32,8 @@ const NewGameForm = () => {
         if (name.trim().length < 3) {
             validationErrors.name = 'Game name must be at least three characters long'
         }
-        if (price < 0) {
-            validationErrors.price = 'Price cannot be less than zero'
+        if (price <= 0) {
+            validationErrors.price = 'Price cannot be less than or equal to zero'
         }
         if (description.trim() == '') {
             validationErrors.description = 'Description is required'
@@ -75,7 +76,7 @@ const NewGameForm = () => {
     };
 
     return (
-        <div className="new-game-container">
+        <div className={`new-game-container ${isOpen ? 'open' : ''}`}>
             <h2>Create a New Game</h2>
             <form className="new-game-form" onSubmit={handleGameCreate}>
                 <div>
@@ -117,6 +118,7 @@ const NewGameForm = () => {
                         placeholder="Describe the game"
                         value={description}
                         onChange={updateDescription}
+                        maxLength={2000}
                     />
                 </div>
 

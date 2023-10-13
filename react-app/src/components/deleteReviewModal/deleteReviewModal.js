@@ -25,7 +25,7 @@ const DeleteReviewModal = ({review}) => {
     return (
         <div className="delete-review-container">
             <div>
-                <h2>Delete Review</h2>
+                <h2>Delete Review?</h2>
                 <h4>Are you sure you want to delete this review? Your insights may be helpful for others...</h4>
             </div>
             <div className="delete-review-modal-buttons">

@@ -117,10 +117,11 @@ const UpdateGameForm = () => {
                         Description
                     </label>
                     <div className="game-errors">{errorMessages.description}</div>
-                    <input
-                        type='text'
+                    <textarea
+                        placeholder="Desribe the game"
                         value={description}
                         onChange={updateDescription}
+                        maxLength={2000}
                     />
                 </div>
 
