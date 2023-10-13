@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import StorePageMain from "./components/storePageMain/storePageMain";
 import GameStorePage from "./components/gameStorePage/gameStorePage";
 import LandingPage from "./components/landingPage/landingPage";
+import Footer from "./components/footer/footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <Footer isLoaded={isLoaded}/>
     </>
   );
 }
