@@ -152,7 +152,7 @@ const NewGameForm = () => {
                     <div className="game-errors">{errorMessages.previewImage}</div>
                     <input
                         type="text"
-                        placeholder="Image URL"
+                        placeholder="For best results, aim for a 16:9 aspect ratio"
                         value={previewImage}
                         onChange={updatePreviewImage}
                     />
