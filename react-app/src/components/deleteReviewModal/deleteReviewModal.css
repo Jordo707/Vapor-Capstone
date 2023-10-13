@@ -1,0 +1,44 @@
+.delete-review-container {
+    background-color: #151826;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+  }
+
+  .delete-review-container h2 {
+    color: #cad2e0;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .delete-review-container h4 {
+    color: #cad2e0;
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  .delete-review-modal-buttons {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cancel-delete-review,
+  .confirm-delete-review {
+    background-color: #ff6b6b;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.5s, color 0.5s;
+  }
+
+  .cancel-delete-review:hover,
+  .confirm-delete-review:hover {
+    background-color: #ff4949;
+    color: #fff;
+    transition: 0.5s;
+    transform: scale(1.01);
+  }

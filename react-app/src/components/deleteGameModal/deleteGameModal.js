@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
 import { deleteGame, getAllGames } from "../../store/games";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import "./deleteGameModal.css";
 
 const DeleteGameModal = ({game}) => {
     const {closeModal} = useModal();

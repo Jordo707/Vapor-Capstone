@@ -90,6 +90,7 @@ const SubmitReviewModal = () => {
                     <label>
                         Explain your reasoning:
                     </label>
+                    <div className="game-errors">{errorMessages.reviewText}</div>
                     <textarea
                         placeholder="Your thoughts here..."
                         minLength={3}
