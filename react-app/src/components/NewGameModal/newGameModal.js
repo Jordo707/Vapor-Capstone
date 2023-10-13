@@ -23,6 +23,15 @@ const NewGameForm = () => {
     const updateDescription = (e) => setDescription(e.target.value);
     const updatePreviewImage = (e) => setPreviewImage(e.target.value);
 
+    const validateImageUrl = (url) => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.src = url;
+          img.onload = () => resolve(true);
+          img.onerror = () => resolve(false);
+        });
+      };
+
     const handleGameCreate = async (e) => {
         e.preventDefault();
         const validationErrors = {}
@@ -43,6 +52,20 @@ const NewGameForm = () => {
         }
         if (previewImage.trim().length < 1) {
             validationErrors.previewImage = 'Preview Image is required'
+        } else {
+            // Validate the URL format
+            const urlPattern = /^(http(s)?:\/\/.*\.(jpg|jpeg|png))$/;
+            if (!urlPattern.test(previewImage)) {
+              validationErrors.previewImage =
+                "Invalid image URL. It should point to a .jpg, .jpeg, or .png image.";
+            }
+
+            // Load the image to validate it
+            const isImageValid = await validateImageUrl(previewImage);
+            if (!isImageValid) {
+              validationErrors.previewImage =
+                "The URL does not point to a valid image.";
+            }
         }
 
 

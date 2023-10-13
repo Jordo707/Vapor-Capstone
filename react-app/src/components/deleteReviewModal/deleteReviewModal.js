@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
 import { deleteReview } from "../../store/reviews";
 import { getSingleGame } from "../../store/games";
+import './deleteReviewModal.css'
 
 const DeleteReviewModal = ({review}) => {
 
