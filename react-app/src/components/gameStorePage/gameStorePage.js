@@ -62,6 +62,7 @@ const GameStorePage = () => {
                         mouseTracking={true}
                         items={carouselImages}
                         autoPlay={true}
+                        keyboardNavigation={true}
                         autoPlayInterval={4000}
                         infinite={true}
                         />
