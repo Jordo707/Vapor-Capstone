@@ -95,8 +95,7 @@ const UpdateReviewModal = ({review}) => {
                     <label>
                         Explain your reasoning:
                     </label>
-                    <input
-                        type="text"
+                    <textarea
                         placeholder="Your thoughts here..."
                         minLength={3}
                         maxLength={255}

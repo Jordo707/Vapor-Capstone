@@ -1,1 +1,44 @@
 /* TODO Add site wide styles */
+/* UNIVERSAL */
+
+body {
+    color: #cad2e0;
+    background-color: #20263a;
+    margin-left: 15%;
+    margin-right: 15%;
+
+}
+
+button {
+    background-color: #6ca100;
+    color: #d4e14b;
+    cursor: pointer;
+    padding: 10px;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+button:hover {
+    background-color: #81be05;
+    color: #fcffd5;
+    transition: .5s;
+    transform: .5s ease;
+}
+
+
+a {
+    color: #cad2e0;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #eaecf0;
+    text-shadow: #eaecf0;
+    transform: scale(1.01);
+}
+
+#modal-content {
+    color: #cad2e0;
+    background-color: #20263a;
+    padding: 15px;
+}

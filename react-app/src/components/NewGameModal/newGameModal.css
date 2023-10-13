@@ -1,22 +1,22 @@
-.signup-form-container {
+.new-game-container {
     background-color: #151826;
     border-radius: 10px;
     padding: 20px;
   }
 
-  .signup-form-container h1 {
+  .new-game-container h2 {
     color: #cad2e0;
   }
 
-  .signup-form-container label {
-    display: block;
+  .new-game-form label {
     color: #cad2e0;
     font-weight: bold;
-    margin-top: 15px;
+    margin-bottom: 8px;
   }
 
-  .signup-form-container input[type="text"],
-  .signup-form-container input[type="password"] {
+  .new-game-form input[type="text"],
+  .new-game-form input[type="number"],
+  .new-game-form textarea {
     background-color: #373c50;
     color: #cad2e0;
     padding: 10px;
@@ -26,28 +26,30 @@
     width: 100%;
   }
 
-  .signup-form-container input[type="text"]::placeholder,
-  .signup-form-container input[type="password"]::placeholder {
+  .new-game-form input[type="text"]::placeholder,
+  .new-game-form input[type="number"]::placeholder,
+  .new-game-form textarea::placeholder {
     color: #cad2e0;
   }
 
-  .signup-form-errors {
+  .new-game-errors {
     color: #ff6b6b;
     font-size: 14px;
     margin-top: 5px;
   }
 
-  .signup-form-container button {
+  .new-game-form button.create-new-game-button-modal,
+  .new-game-form button.create-new-game-cancel-button-modal {
     background-color: #6ca100;
     color: #d4e14b;
     cursor: pointer;
     padding: 10px 20px;
     transition: background-color 0.5s, color 0.5s;
     margin-right: 10px;
-    margin-top: 15px;
   }
 
-  .signup-form-container button:hover {
+  .new-game-form button.create-new-game-button-modal:hover,
+  .new-game-form button.create-new-game-cancel-button-modal:hover {
     background-color: #81be05;
     color: #fcffd5;
     transition: 0.5s;

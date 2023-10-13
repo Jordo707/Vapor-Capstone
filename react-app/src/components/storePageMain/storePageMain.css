@@ -1,4 +1,23 @@
+/* storePageMain.css */
+
 .game-preview-image {
     height: 400px;
     width: 500px;
+    padding: 10px;
+}
+
+.game-card {
+    display: flex;
+    margin-top: 30px;
+    background-color: #151826;
+    transition: background-color 0.5s, transform 0.5s;
+}
+
+.game-info p {
+    word-break: break-word;
+}
+
+.game-card:hover {
+    background-color: #373c50;
+    transform: scale(1.01);
 }

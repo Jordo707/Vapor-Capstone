@@ -12,6 +12,7 @@ const StorePageMain = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const allGames = useSelector( state => state.games.allGames )
+    const sessionUserId = useSelector( state => state.session.user?.id)
 
     useEffect( async () => {
         await dispatch(getAllGames())
@@ -29,19 +30,25 @@ const StorePageMain = () => {
         <>
             <div className="store-games">
                 {allGames.map((game) => (
+                    <>
+                    <Link to={`/store/${game.id}`}>
                     <div className="game-card" key={game.id}>
                         <img
                             className="game-preview-image"
                             src={game.preview_image_url || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo0nwDRO1dYTQIhm9Sz8sA20Wqk8xaiNyhQg&usqp=CAU"}
                         />
-                        <h3>{game.name}</h3>
-                        <p>{game.description}</p>
-                        <p>Price: ${game.price}</p>
-                        <Link to={`/store/${game.id}`}>Store Page</Link>
+                        <div className="game-info">
+                            <h3>{game.name}</h3>
+                            <p>{game.description}</p>
+                            <p>Price: ${game.price}</p>
+                            {/* <Link to={`/store/${game.id}`}>Store Page</Link> */}
+                        </div>
                     </div>
+                    </Link>
+                    </>
                 ))}
             </div>
-            <div className="new-game-button">
+            <div className="new-game-button" hidden={!sessionUserId}>
                     <OpenModalButton
                         modalComponent={<NewGameForm />}
                         buttonText="Publish a New Game"
