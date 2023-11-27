@@ -31,6 +31,16 @@ const editGame = (gameId) => ({
     payload:gameId
 })
 
+const getWishlist = (userId) => ({
+    type:GET_WISHLIST_GAMES,
+    payload: userId
+})
+
+const getOwnedGames = (userId) => ({
+    type:GET_USER_OWNED_GAMES,
+    payload: userId
+})
+
 // Thunks
 
 export const getAllGames = () => async (dispatch) => {
@@ -124,6 +134,12 @@ export const postGameImage = (gameId) => async (dispatch) => {
         const newImage = await response.json();
         return newImage;
     }
+}
+
+export const getUserWishlist = (userId) => async (dispatch) => {
+    console.log('HIT GET USER WISHLIST THUNK');
+    console.log('USER ID: ',userId);
+    // const response = await fetch('')
 }
 
 // Reducer

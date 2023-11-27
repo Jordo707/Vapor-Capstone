@@ -8,6 +8,13 @@ from app.forms.image_form import ImageForm
 
 game_routes = Blueprint('games', __name__)
 
+@game_routes.route('/wishlist/<user_id>')
+def wishlist_games(user_id):
+    """
+    Get all the games in the current user's wishlist
+    """
+    
+
 @game_routes.route('')
 def all_games():
     """
