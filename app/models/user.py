@@ -27,7 +27,7 @@ class User(db.Model, UserMixin):
     #Relationships
     user_reviews = db.relationship('Review', back_populates='reviewer', cascade='all, delete-orphan')
     developed_games = db.relationship('Game', back_populates='developer', cascade='all, delete-orphan')
-
+    user_wishes = db.relationship('Wish', back_populates='wish_users', cascade='all, delete orphan')
 
     @property
     def password(self):
@@ -49,5 +49,5 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'profile_pic':self.profile_pic,
             'created_at': self.created_at,
-            'updated_at': self.updated_at,
+            'updated_at': self.updated_at
         }
