@@ -42,3 +42,13 @@ def get_user_wishes(user_id):
     except Exception as e:
         print(e)
         return jsonify({'error':'Internal Server Error'}), 500
+
+@wish_routes.route('/<user_id>/<game_id>', methods=['POST'])
+@login_required
+def add_new_wish(user_id, game_id):
+    """
+    Create a new wish
+    """
+
+@wish_routes.route('/<user_id>/<game_id>', methods=['POST'])
+@login_required
