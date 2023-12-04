@@ -24,10 +24,13 @@ function Navigation({ isLoaded }){
 			<span>
 				<NavLink exact to="/store">Store</NavLink>
 			</span>
-			<span className="tooltip">
+			<span>
+				<NavLink exact to='/wishlist'>Wishlist</NavLink>
+			</span>
+			{/* <span className="tooltip">
 				<span>Wish-List</span>
 				<div className="tooltiptext">Coming Soon</div>
-			</span>
+			</span> */}
 				<span className="tooltip">
 			<span>Library</span>
 				<div className="tooltiptext">Coming Soon</div>
