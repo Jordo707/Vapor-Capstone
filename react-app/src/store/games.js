@@ -7,6 +7,8 @@ const GET_ALL_GAMES = 'games/GET_ALL_GAMES'
 const GET_ONE_GAME = 'games/GET_ONE_GAME'
 const GET_USER_OWNED_GAMES ='games/GET_USER__OWNED_GAMES'
 const GET_WISHLIST_GAMES ='games/GET_WISHLIST_GAMES'
+const ADD_WISH = 'games/ADD_WISH'
+const REMOVE_WISH = 'games/REMOVE_WISH'
 const EDIT_GAME ='games/EDIT_GAME'
 const DELETE_GAME ='games/DELETE_GAME'
 
@@ -31,14 +33,19 @@ const editGame = (gameId) => ({
     payload:gameId
 })
 
-const getWishlist = (userId) => ({
+const getWishlist = (wishlist) => ({
     type:GET_WISHLIST_GAMES,
-    payload: userId
+    payload: wishlist
 })
 
 const getOwnedGames = (userId) => ({
     type:GET_USER_OWNED_GAMES,
     payload: userId
+})
+
+const addWish = (userId,gameId) => ({
+    type: ADD_WISH,
+    payload: {userId,gameId}
 })
 
 // Thunks
@@ -139,7 +146,30 @@ export const postGameImage = (gameId) => async (dispatch) => {
 export const getUserWishlist = (userId) => async (dispatch) => {
     console.log('HIT GET USER WISHLIST THUNK');
     console.log('USER ID: ',userId);
-    // const response = await fetch('')
+    const response = await fetch(`/api/wishes/${userId}`)
+
+    if (response.ok) {
+        const wishList = await response.json()
+        console.log('----------------------------------')
+        console.log('getUserWishlist Response: ', wishList)
+        console.log('----------------------------------')
+        dispatch(getWishlist(wishList))
+        return wishList
+    } else {
+        console.log(`couldn't load user wishlist :-(`)
+    }
+
+}
+
+export const addUserWish = (userId, gameId) => async (dispatch) => {
+    console.log('ADD USER WISH THUNK');
+    const response = await fetch(`api/wishes/${userId}`,{
+        method:'POST',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(userId, gameId)
+    })
 }
 
 // Reducer
@@ -149,7 +179,8 @@ const initialState = {
     selectedGame: {
         game: {},
         reviews: [],
-    }
+    },
+    wishlist: {}
 };
 
 export default function gamesReducer(state = initialState, action) {
@@ -172,6 +203,11 @@ export default function gamesReducer(state = initialState, action) {
             return {
                 ...state,
                 selectedGame: {}
+            }
+        case GET_WISHLIST_GAMES:
+            return {
+                ...state,
+                wishlist: action.payload
             }
         default:
             return state;

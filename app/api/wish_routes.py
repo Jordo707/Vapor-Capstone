@@ -16,16 +16,22 @@ def get_user_wishes(user_id):
     print('HIT BACKEND WISH GET ROUTE')
     print('----------------------------------')
     try:
-        user_id = int(user_id)
+        # user_id = int(user_id)
 
         wishes = Wish.query.filter_by(user = user_id).all()
+        print('----------------------------------')
+        print('Wishes', wishes)
+        print('----------------------------------')
 
         user_wishes = []
         for wish in wishes:
+            print('----------------------------------')
+            print('Wish', wish.to_dict())
+            print('----------------------------------')
             game_id = wish.game
             game = Game.query.get(game_id)
 
-            preview_image = Game_Image.query.filter_by(game_id=game_id, Preview=True).first()
+            preview_image = Game_Image.query.filter_by(game_id=game_id, preview=True).first()
 
             game_data = {
                 'id': game.id,
@@ -38,7 +44,7 @@ def get_user_wishes(user_id):
 
             user_wishes.append(game_data)
 
-        return jsonify({'user_wishes': user_wishes})
+        return jsonify(user_wishes)
     except Exception as e:
         print(e)
         return jsonify({'error':'Internal Server Error'}), 500
@@ -49,6 +55,12 @@ def add_new_wish(user_id, game_id):
     """
     Create a new wish
     """
+    
 
-@wish_routes.route('/<user_id>/<game_id>', methods=['POST'])
-@login_required
+
+# @wish_routes.route('/<user_id>/<game_id>', methods=['DELETE'])
+# @login_required
+# def remove_wish():
+#     """
+#     Remove wish
+#     """

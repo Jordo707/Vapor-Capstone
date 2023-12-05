@@ -2,18 +2,19 @@ import { useDispatch, useSelector } from "react-redux";
 import React, {useEffect} from "react";
 import OpenModalButton from "../OpenModalButton";
 import { useHistory, Link } from "react-router-dom/cjs/react-router-dom.min";
+import { getUserWishlist } from "../../store/games";
 import './wishlistPage.css'
 
 const WishlistPage = () => {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    const wishlistGames = useSelector( state => state.games.wishlistGames);
+    const wishlistGames = useSelector( state => state.games.wishlist);
     const sessionUserId = useSelector( state => state.session.user?.id);
 
-    // useEffect( async () => {
-    //     await dispatch()
-    // })
+    useEffect( async () => {
+        await dispatch(getUserWishlist(sessionUserId))
+    },[dispatch])
 
     console.log('Wishlist Game Data: ', wishlistGames);
 
