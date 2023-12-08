@@ -4,3 +4,4 @@ from .db import environment, SCHEMA
 from .game import Game
 from .review import Review
 from .game_image import Game_Image
+from .wish import Wish
