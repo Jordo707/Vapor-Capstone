@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import StorePageMain from "./components/storePageMain/storePageMain";
 import GameStorePage from "./components/gameStorePage/gameStorePage";
 import LandingPage from "./components/landingPage/landingPage";
+import WishlistPage from "./components/wishlistPage/wishlistPage";
 import Footer from "./components/footer/footer";
 
 function App() {
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path='/wishlist'>
+            <WishlistPage/>
           </Route>
           <Route path='/store/:gameId'>
             <GameStorePage />

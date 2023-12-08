@@ -41,7 +41,6 @@ const StorePageMain = () => {
                             <h3>{game.name}</h3>
                             <p>{game.description}</p>
                             <p>Price: ${game.price}</p>
-                            {/* <Link to={`/store/${game.id}`}>Store Page</Link> */}
                         </div>
                     </div>
                     </Link>

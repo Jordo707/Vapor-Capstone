@@ -21,6 +21,7 @@ class Game(db.Model):
     developer = db.relationship('User', back_populates='developed_games')
     game_reviews = db.relationship('Review', back_populates='review_game', cascade='all, delete-orphan')
     game_pics = db.relationship('Game_Image', back_populates='image_game', cascade='all, delete-orphan')
+    game_wishes = db.relationship('Wish', back_populates='wish_games', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
