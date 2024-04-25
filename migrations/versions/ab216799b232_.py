@@ -94,8 +94,8 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['game_id'],['game.id'], ),
-    sa.ForeignKeyConstraint(['user_id'],['user.id'], ),
+    sa.ForeignKeyConstraint(['game_id'],['games.id'], ),
+    sa.ForeignKeyConstraint(['user_id'],['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
 
