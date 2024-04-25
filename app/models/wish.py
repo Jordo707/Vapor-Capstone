@@ -21,8 +21,8 @@ class Wish(db.Model):
     def to_dict(self):
         return {
             'id':self.id,
-            'game':self.game,
-            'user':self.user,
+            'game_id':self.game_id,
+            'user_id':self.user_id,
             'created_at':self.created_at,
             'updated_at':self.updated_at
         }
