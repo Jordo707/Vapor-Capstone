@@ -3,12 +3,12 @@ from sqlalchemy.sql import text
 
 def seed_wishes():
     demo_burnout_wish = Wish(
-        game = 1,
-        user = 1
+        game_id = 1,
+        user_id = 1
     )
     demo_africanus_wish = Wish(
-        game = 2,
-        user = 1
+        game_id = 2,
+        user_id = 1
     )
     db.session.add(demo_burnout_wish)
     db.session.add(demo_africanus_wish)
