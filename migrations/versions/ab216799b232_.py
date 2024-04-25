@@ -90,12 +90,12 @@ def upgrade():
 
     op.create_table('wishes',
     sa.Column('id', sa.Integer()),
-    sa.Column('game', sa.Integer(), nullable=False),
-    sa.Column('user', sa.Integer(), nullable=False),
+    sa.Column('game_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['game'],['game.id'], ),
-    sa.ForeignKeyConstraint(['user'],['user.id'], ),
+    sa.ForeignKeyConstraint(['game_id'],['game.id'], ),
+    sa.ForeignKeyConstraint(['user_id'],['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
 
